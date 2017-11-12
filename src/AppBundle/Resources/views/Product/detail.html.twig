@@ -1,0 +1,58 @@
+{% extends 'AppBundle:Default:base.html.twig' %}
+
+{% block content %}
+
+
+
+    <div class="single-product-area">
+        <div class="container" style="min-height: 500px;">
+            <div class="row">
+                <div class="col-sm-5 col-md-5 col-lg-5">
+                    <div class="product-view">
+                        <div class="full-product-img">
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active">
+                                    <div class="simpleLens-big-image-container">
+                                        <a class="simpleLens-lens-image" data-lens-image="{{ product.ImgUrl }}">
+                                            <img alt="" src="{{ product.ImgUrl }}" class="simpleLens-big-image">
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-7 col-md-7 col-lg-7">
+                    <div class="single-product-info sp-info-area">
+                        <div class="product-name"><h1>{{ product.ProductName }}</h1></div>
+                        <div class="product-rating">
+                            <div title="Rating: 5/5" class="ratingbox">
+                                <div class="stars-orange" style="width:45px"></div>
+                            </div>
+                            <span class="amount">  </span>
+                        </div>
+                        <div class="all-prices">
+                            <span class="sp-price">    {% if app.session.get('name') != null %}{{ product.Price }}  TL{% endif %} </span>
+                        </div>
+
+                        <div class="product-short-description">
+                            <h4>Acıklama</h4>
+                            {{ product.Description }}
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <!-- related product area start -->
+
+                <!-- related product area end -->
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

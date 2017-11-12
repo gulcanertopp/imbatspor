@@ -1,0 +1,75 @@
+services:
+#    admin.example:
+#        class: AdminBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    app.base_repository:
+        class: AppBundle\Data\Repository\BaseRepository
+        calls:
+          - [Initialize , ["@doctrine.dbal.default_connection"]]
+
+    app.base_controller:
+        class: AppBundle\Controller\BaseController
+        abstract: true
+        calls:
+            - [ Initialize, ["@session"] ]
+
+    app.default_controller:
+        class: AppBundle\Controller\DefaultController
+        parent: "app.base_controller"
+        arguments: ["@app.user_repository"]
+
+    app.product_controller:
+        class: AppBundle\Controller\ProductController
+        arguments: ["@app.product_repository"]
+        parent: "app.base_controller"
+
+    app.gallery_controller:
+        class: AppBundle\Controller\GalleryController
+        arguments: ["@app.gallery_repository"]
+        parent: "app.base_controller"
+
+    app.base_repository:
+        class: AppBundle\Data\Repository\BaseRepository
+        calls:
+            - [Initialize , ["@doctrine.dbal.default_connection"]]
+
+    app.user_repository:
+        class: AppBundle\Data\Repository\UserRepository
+        parent: app.base_repository
+
+    app.gallery_repository:
+        class: AppBundle\Data\Repository\GalleryRepository
+        parent: app.base_repository
+
+    app.category_repository:
+        class: AppBundle\Data\Repository\CategoryRepository
+        parent: app.base_repository
+
+    app.product_repository:
+        class: AppBundle\Data\Repository\ProductRepository
+        parent: app.base_repository
+
+    app.brand_repository:
+        class: AppBundle\Data\Repository\BrandRepository
+        parent: app.base_repository
+
+    app.catalog_repository:
+           class: AppBundle\Data\Repository\CatalogRepository
+           parent: app.base_repository
+
+    kernel.listener.controller_listener:
+        class:  AppBundle\EventListener\ControllerListener
+        tags:
+          - { name: kernel.event_listener, event: kernel.controller, method: onHandleController }
+
+    kernel.listener.exception_listener:
+        class: AppBundle\EventListener\ExceptionListener
+        arguments: ["@twig", "@logger"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+    app.generichelper:
+      class: AppBundle\Domain\Helper\GenericHelper
+      arguments: ["@service_container","@request_stack","@app.category_repository","@app.brand_repository"]
+      tags:
+          - { name: twig.extension }

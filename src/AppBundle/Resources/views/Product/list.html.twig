@@ -1,0 +1,113 @@
+{% extends 'AppBundle:Default:base.html.twig' %}
+{% block content %}
+
+<!-- breadcrumbs area  star
+ <div class="breadcrumbs-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="breadcrumbs-title pull-left">
+                    <h3></h3>
+                </div>
+                <div class="breadcrumbs-list pull-right">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- breadcrumbs area  end-->
+
+<!-- shop page start  -->
+<div class="shop-product-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="shop-top-bar">
+
+                    <div class="shop-right-short-area">
+
+                        </div>
+
+                        <div class="sort-by-toolbar-switch">
+                            <div class="toolbar-title"> <label>Gösterim</label> </div>
+
+
+                            <select name="dataTables-example_length" style="width: 68%; float: left" aria-controls="dataTables-example"
+                                    class="custom-select form-control input-sm">
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="48">48</option>
+                                <option value="72">72</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="shop-products">
+                    <div class="row">
+                        <div class="tab-single-product">
+                            {% for product in products.Content %}
+
+                                <div class="col-sm-6 col-md-3 col-lg-3">
+                                    <div class="t-all-product-info">
+                                        <div class="t-product-img">
+                                            <a href="{{ url("app_product_detail", {"id" : product.ID}) }}">
+                                                <img alt="" src="{{ product.ImgUrl }}">
+                                                <img alt="" src="{{ product.ImgUrl }}" class="second-img">
+                                            </a>
+                                        </div>
+                                        <div class="tab-p-info">
+                                            <a href="{{ url("app_product_detail", {"id" : product.ID}) }}">{{ product.ProductName }} </a>
+
+                                          {% if app.session.get('name') != null %}
+                                          <h3>{{ product.Price }}TL</h3>
+                                          {% endif %}
+                                            <div class="shop-p-ditels">
+                                                <p>{{ product.Description }}</p>
+                                            </div>
+                                            <div class="al-btns">
+                                                <ul class="add-to-links">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- shop page end  -->
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+
+
+        var url = window.location.href;
+        var a = url.split("/");
+        var b = url.split("/list");
+        var limit= a[6];
+
+        if(limit != null){
+            $(".custom-select option[value='"+limit+"']" ).prop('selected',true);
+        }
+        $('.custom-select').on('change', function() {
+
+            window.location.href = b[0]+'/'+a[3]+'/'+a[4]+'/'+a[5]+'/'+this.value;
+
+
+        })
+
+    </script>
+{% endblock %}

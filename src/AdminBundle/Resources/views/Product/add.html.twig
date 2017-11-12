@@ -1,0 +1,232 @@
+{% extends 'AdminBundle:Default:base.html.twig' %}
+{% block content %}
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="alert alert-success" style="display: none">
+                    <strong>Başarıyla  Eklendi</strong>
+                </div>
+
+                <div class="alert alert-danger" style="display: none"><strong>Hata Oluştu</strong></div>
+
+                <form id="product-add-form" class="login-form button-style" method="post" enctype="multipart/form-data">
+
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Ürün Kodu:</label>
+                        <input data-validation="required"  data-validation-error-msg="Boş Olamaz" name="product_code" type="text"class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Adı:</label>
+                        <input data-validation="required"  data-validation-error-msg="Boş Olamaz" name="product_name" type="text"class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Ürün Fiyatı:</label>
+                        <input data-validation="required"  data-validation-error-msg="Boş Olamaz" name="price" type="text"class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama:</label>
+                        <input data-validation="required"  data-validation-error-msg="Boş Olamaz" name="description" type="text"class="form-control"  />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kategori:</label>
+                        <select id="main-cat" class="form-control" name="cat_id">
+                            {% for cat  in categories %}
+                                <option value="{{ cat.ID }}">{{ cat.CategoryName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alt Kategori:</label>
+                        <select id="sub-cat" class="form-control" name="sub_cat_id">
+
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Cinsiyet:</label>
+
+                        <select name="gender" class="form-control">
+                                    <option value="0">Boş</option>
+                                    <option value="1">Kadın</option>
+                                    <option value="2">Erkek</option>
+                                    <option value="3">Kız Çocuk</option>
+                                    <option value="4">Erkek Çocuk</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Markası:</label>
+                        <select id="brand" name="brand_id" class="form-control">
+                            {% for brand  in brands %}
+                                <option value="{{ brand.ID }}">{{ brand.BrandName }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Resim:</label>
+                        <input type="hidden" id="img_url">
+                    </div>
+                    <button style="float: right" type="submit" class="btn btn-primary">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+   {% block javascripts %}
+       <script type="text/javascript" src="{{ asset('static/js/uploadImage.js') }}" ></script>
+       <script>
+           var categories=[];
+           var Forms={
+               Add:{
+                   Self:$('#product-add-form'),
+                   Fields:{
+                       id:$('#product-add-form input[name ="id"]'),
+                       product_code:$('#product-add-form input[name ="product_code"]'),
+                       product_name:$('#product-add-form input[name ="product_name"]'),
+                       price:$('#product-add-form input[name ="price"]'),
+                       description:$('#product-add-form input[name ="description"]'),
+                       gender:$('#product-add-form select[name ="gender"]'),
+                       brand_id:$('#product-add-form select[name ="brand_id"]'),
+                       img_url:$('#img_url').val(),
+                       categories: categories
+                   },
+                   Values          : function(){
+                       return {
+
+                           id:null,
+                           product_code:Forms.Add.Fields.product_code.val(),
+                           product_name:Forms.Add.Fields.product_name.val(),
+                           price:Forms.Add.Fields.price.val(),
+                           description:Forms.Add.Fields.description.val(),
+                           gender:Forms.Add.Fields.gender.val(),
+                           description:Forms.Add.Fields.description.val(),
+                           brand_id:Forms.Add.Fields.brand_id.val(),
+                           img_url:$('#img_url').val(),
+                           categories: categories
+                       };
+                   },
+                   Bind:function () {
+                       Forms.Add.Self.on('submit',function (e) {
+                           e.preventDefault();
+                           $.post('{{ url('ajax_product_add') }}',Forms.Add.Values(),function (result) {
+                               if(result.success)
+                               {
+                                   setTimeout(function () {
+                                    location.reload();
+                                   },2000);
+                                   $('.alert-success').slideDown();
+                               }else {
+                                   $('.alert-danger').slideDown();
+                               }
+                           })
+                       })
+                   }
+               },
+
+               Bind:function () {
+                   Forms.Add.Bind();
+               }
+           }
+           $('#main-cat').on('change', function (e) {
+               categories = [];
+               var optionSelected = $("option:selected", this);
+               var valueSelected = this.value;
+               $.post('{{ url('admin_ajax_sub_category_get') }}',{ parent: valueSelected },function (result) {
+                   if(result.categories)
+                   {
+                       var option = "";
+                       $.each( result.categories, function( key, value ) {
+                           option +=  '<option value="'+value.ID+'">'+value.CategoryName+'</option>';
+                       });
+
+                       $('#sub-cat').html(option);
+
+                   }
+               })
+
+               categories.push({
+                   'id':valueSelected,
+                   'category_name':'null',
+                   'description':'null',
+                   'parent':'null'
+               },{
+                   'id':$("#sub-cat option:selected").val(),
+                   'category_name':'null',
+                   'description':'null',
+                   'parent':'null'
+               })
+           });
+
+           $('#sub-cat').on('change', function (e) {
+               categories = [];
+               var optionSelected = $("option:selected", this);
+               var valueSelected = this.value;
+               categories.push({
+                   'id':$("#main-cat option:selected").val(),
+                   'category_name':'null',
+                   'description':'null',
+                   'parent':'null'
+               },{
+                   'id':valueSelected,
+                   'category_name':'null',
+                   'description':'null',
+                   'parent':'null'
+               })
+
+           });
+           $(document).ready(function () {
+               $.post('{{ url('admin_ajax_sub_category_get') }}',{ parent: $("#main-cat option:selected").val() },function (result) {
+                   if(result.categories)
+                   {
+                       var option = "";
+                       $.each( result.categories, function( key, value ) {
+                          option +=  '<option value="'+value.ID+'">'+value.CategoryName+'</option>';
+                       });
+
+                       $('#sub-cat').html(option);
+                       categories.push({
+                               'id': $("#main-cat option:selected").val(),
+                               'category_name':'null',
+                               'description':'null',
+                               'parent':'null'
+                           },
+                           {
+                               'id': $("#sub-cat option:selected").val(),
+                               'category_name':'null',
+                               'description':'null',
+                               'parent':'null'
+                           })
+                   }
+
+               })
+
+               $('#img_url').uploadableImage({
+                   url         : '{{ path('admin_media_save_easy') }}',
+                   description : ' ',
+                   errors      : {
+                       limitMultiFileUploads : 'blog'
+                   },
+                   s : 0.20
+               });
+
+               $.validate({
+                   validateOnBlur : false,
+                   errorMessagePosition : 'top',
+                   scrollToTopOnError : false
+               });
+               Forms.Bind();
+
+           });
+
+
+       </script>
+   {% endblock %}

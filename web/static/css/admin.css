@@ -1,0 +1,34 @@
+
+.search-inp
+{ width: 153px !important; }
+
+#custom-search-form
+{
+    margin-bottom: 15px;
+    margin-right: 0;
+}
+#textarea-size
+{
+    resize:none;
+}
+#phone
+{
+    width: 250px;
+}
+
+#btn-phone
+{
+    margin-left: 260px;
+    margin-top: -54px;
+}
+.is-cat-desc{
+    float: left;
+    max-width: 128px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.is-main-cat-desc{
+    float: right;
+}

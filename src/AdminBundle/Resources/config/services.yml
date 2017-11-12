@@ -1,0 +1,35 @@
+services:
+#    admin.example:
+#        class: AdminBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+      admin.base_controller:
+          class: AdminBundle\Controller\BaseController
+          abstract: true
+          calls:
+              - [ Initialize, ["@session"] ]
+
+      admin.default_controller:
+          class: AdminBundle\Controller\DefaultController
+          arguments: ["@app.user_repository"]
+          parent: "admin.base_controller"
+
+      admin.category_controller:
+          class: AdminBundle\Controller\CategoryController
+          arguments: ["@app.category_repository"]
+          parent: "admin.base_controller"
+
+      admin.brand_controller:
+          class: AdminBundle\Controller\BrandController
+          arguments: ["@app.brand_repository"]
+          parent: "admin.base_controller"
+
+      admin.catalog_controller:
+          class: AdminBundle\Controller\CatalogController
+          arguments: ["@app.catalog_repository"]
+          parent: "admin.base_controller"
+
+      admin.product_controller:
+          class: AdminBundle\Controller\ProductController
+          arguments: ["@app.product_repository","@app.category_repository","@app.brand_repository"]
+          parent: "admin.base_controller"

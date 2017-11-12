@@ -1,0 +1,402 @@
+{% extends 'AdminBundle:Default:base.html.twig' %}
+
+
+{% block content %}
+    <header>
+        <div class="header-top" id="sticker">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-12 col-lg-2">
+                        <div class="logo-area">
+                            <a href="index.html"><img src="{{ asset('static/img/logos/imbatlogo.png') }}" alt="logo" /> </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-9 col-lg-8 hidden-sm hidden-xs ">
+                        <div class="menu-area">
+                            <nav class="main-menu">
+                                <ul>
+                                    <li><a href="{{ url('homepage') }}">ANASAYFA</a></li>
+                                    <li><a href="#">ÜRÜNLER</a>
+                                        <div class="mega-menu">
+                                            <div class=" mega-menu-all col-sm-12 col-md-12 col-lg-12">
+                                                <div class="mega-menu-half  col-sm-12 col-md-6 col-lg-6">
+										<span class="open-menu" data-value="deneme">
+											<a  class="mega_title futbol" href="{{ url('app_product_list') }}">Futbol</a>
+
+											<div class="sub-product" style="display:none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop-list.html">Forma</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Ter Atleti</a>
+											<a href="shop-list.html">Kazak(Kaleci)</a>
+											<a href="shop-list.html">Pantolon</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Kapri</a>
+											<a href="shop-list.html">Eldiven</a>
+											<a href="shop-list.html">İçlik</a>
+											<a href="shop-list.html">Çorap</a>
+											<a href="shop-list.html">Yelek</a>
+											<a href="shop-list.html">Yağmurluk</a>
+											</div>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Basketbol</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop-list.html">Forma</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Çorap</a>
+										</div>
+										<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Voleybol</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop-list.html">Forma</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Çorap</a>
+											</div>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Hentbol</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop-list.html">Forma</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Çorap</a>
+											</div>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Fitness</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop-list.html">Forma</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Çorap</a>
+											</div>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Plates</a>
+
+											<div class="sub-product" style="display: none">
+										<a href="shop.html">Ayakkabı</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Çorap</a>
+											</div>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Box</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											</div>
+											<hr>
+										</span>
+
+                                                    </span>
+                                                </div>
+                                                <div class="mega-menu-otherhalf col-sm-12 col-md-6 col-md-6">
+										<span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Kickbox</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Eldiven</a>
+										</div>
+										<hr>
+										</span>
+                                                    </span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Tenis</a>
+
+											<div class="sub-product" style="display: none">
+											<a href="shop.html">Ayakkabı</a>
+											<a href="shop.html">Şort</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Tayt</a>
+											<a href="shop-list.html">Eşofman</a>
+											<a href="shop-list.html">T-Shirt</a>
+											<a href="shop-list.html">Tenis Topu</a>
+											<a href="shop-list.html">Raket</a>
+											</div>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Masa Tenisi</a>
+										<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Bisiklet</a>
+										<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Badminton</a>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Cimnastik</a>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Tekvando</a>
+											<hr>
+										</span>
+                                                    <span>
+											<a class="mega_title" href="{{ url('app_product_list') }}">Güreş</a>
+											<hr>
+										</span>
+                                                </div>
+                                            </div>
+                                            <img id="product-footer-img" src="{{ asset('static/img/productmenu/sports.jpg') }}"/>
+                                        </div>
+                                    </li>
+                                    <li><a class="hot-p nrp" href="#">Markalar</a>
+                                        <div class="mega-menu only-dropdown">
+										<span>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+										<a href="{{ url('app_product_list') }}" title="Manufacturer - Adidas"> <img src="{{ asset('static/img/brand/Adidas.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - adidas"> </a>
+
+										<a href="#" title="Manufacturer - Nike"> <img src="{{ asset('static//img/brand/nike.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - nike"> </a>
+
+										<a href="#" title="Manufacturer - Puma"> <img src="{{ asset('static/img/brand/puma.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - puma"> </a>
+									</div>
+
+										<div class="col-sm-12 col-md-6 col-lg-6">
+
+										<a href="#" title="Manufacturer - lescon"> <img src="{{ asset('static/img/brand/lescon.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - lescon"> </a>
+
+										<a href="#" title="Manufacturer - lotto"> <img src="{{ asset('static/img/brand/lotto.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - lotto"> </a>
+
+										<a href="#" title="Manufacturer - mp"> <img src="{{ asset('static/img/brand/mp.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - mp"> </a>
+										</div>
+										</span>
+
+                                            <span>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+
+											<a href="#" title="Manufacturer - Uhlsport"> <img src="{{ asset('static/img/brand/Uhlsport.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - uhlsport"> </a>
+
+											<a href="#" title="Manufacturer - spalding"> <img src="{{ asset('static/img/brand/spalding.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - spalding"> </a>
+
+
+
+											<a href="#" title="Manufacturer - mikasa"> <img src="{{ asset('static/img/brand/mikasa.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - mikasa"> </a>
+
+											<a href="#" title="Manufacturer - sportive"> <img src="{{ asset('static/img/brand/sportive.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - sportive"> </a>
+
+											<a href="#" title="Manufacturer - Starion"> <img src="{{ asset('static/img/brand/starion.png') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - starion"> </a>
+
+										</div>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<a href="#" title="Manufacturer - TRYON"> <img src="{{ asset('static/img/brand/tryon.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - TRYON"> </a>
+										</div>
+
+										<span>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<a href="#" title="Manufacturer - kempa"> <img src="{{ asset('static/img/brand/kempa.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - kempa"> </a>
+
+										</div>
+
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<a href="#" title="Manufacturer - wilson"> <img src="{{ asset('static/img/brand/wilson.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - wilson"> </a>
+										</div>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<a href="#" title="Manufacturer - butterfly"> <img src="{{ asset('static/img/brand/butterfly.jpg') }}" class="img-responsive logo_manufacturer " alt="Manufacturer - butterfly"> </a>
+										</div>
+
+										</span>
+                                        </div>
+                                    </li>
+                                    <li><a href="blog.html">E-Katalog</a></li>
+                                    <li><a href="{{ url('app_gallery_list') }}">GALERİ</a></li>
+                                    <li><a href="{{ url('app_about') }}">HAKIMIZDA</a></li>
+                                    <li><a href="{{ url('app_contact') }}">İLETİŞİM</a></li>
+                                    <li><a href="{{ url('app_contact') }}">FORMANI TASARLA</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <div class="r-menu-area">
+                            <div class="right-menus hm-1">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-search"></i></a>
+                                        <div class="search-area">
+                                            <input type="text"  placeholder="Website içinde ara..."/>
+                                            <button class="button" title="Search" type="submit">
+                                                <span><span>Ara</span></span>
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="cart-sub">
+                                    <div class="all_carts_item">
+                                        <div class="row mini-cart-item ">
+                                            <a href="#" class="cart_list_product_img">
+                                                <img class="attachment-shop_thumbnail" src="{{ asset('static/img//cart/1.jpg') }}" alt="04">
+                                            </a>
+                                            <div class="mini-cart-info">
+                                                <a href="#" class="cart_list_product_title">bicy0004 Sky Print</a>
+                                                <div class="cart_list_product_quantity">2 x <span class="amount">$40.00</span></div>
+                                            </div>
+                                            <a title="Remove this item" class="remove" href="#"><i class="fa fa-trash-o"></i></a>
+                                        </div>
+                                        <div class="row mini-cart-item ">
+                                            <a href="#" class="cart_list_product_img">
+                                                <img class="attachment-shop_thumbnail" src="{{ asset('static/img/cart/2.jpg') }}" alt="04">
+                                            </a>
+                                            <div class="mini-cart-info">
+                                                <a href="#" class="cart_list_product_title">Print Night Sky </a>
+                                                <div class="cart_list_product_quantity">3 x <span class="amount">$140.00</span></div>
+                                            </div>
+                                            <a title="Remove this item" class="remove" href="#"><i class="fa fa-trash-o"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="minicart_total_checkout">
+                                        Subtotal<span><span class="amount">$80.00</span></span>
+                                    </div>
+                                    <div class="btn-mini-cart inline-lists">
+                                        <a class="button btn-viewcart" href="#">View Cart</a>
+                                        <a title="Checkout" class="button btn-checkout" href="#">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- mobile-menu-area start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a href="index.html">Home</a>
+                                        <ul>
+                                            <li><a href="index.html" class="mega-title"> BiCycle Store </a></li>
+                                            <li><a href="index-2.html" class="mega-title"> Shopping Mall Store </a></li>
+                                            <li><a href="index-3.html" class="mega-title"> BackPacks Store </a></li>
+                                            <li> <a href="index-4.html" class="mega-title"> Bakery Store </a></li>
+                                            <li><a href="index-5.html" class="mega-title"> T-Shirt Store </a></li>
+                                            <li><a href="index-6.html" class="mega-title"> Tools Hardware Store </a></li>
+                                            <li><a href="index-7.html" class="mega-title"> Baby Store </a></li>
+                                            <li><a href="index-8.html" class="mega-title"> Health Store </a></li>
+                                            <li> <a href="index-9.html" class="mega-title"> Jewelry Store </a> </li>
+                                            <li>  <a href="index-10.html" class="mega-title"> Application Store </a> </li>
+                                            <li><a href="index-11.html" class="mega-title"> Lingeries Store </a></li>
+                                            <li><a href="index-12.html" class="mega-title"> HighTech Store </a></li>
+                                            <li><a href="index-13.html" class="mega-title"> Office Store </a></li>
+                                            <li><a href="index-14.html" class="mega-title"> Fashion Jemiz Store </a></li>
+                                            <li> <a href="index-15.html" class="mega-title"> GameWorld Store </a></li>
+                                            <li>  <a href="index-16.html" class="mega-title"> Sneaker Store </a> </li>
+                                            <li> <a href="index-17.html" class="mega-title"> Drug Store </a> </li>
+                                            <li> <a href="index.html" class="mega-title"> Fashion Store </a> </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Women</a>
+                                        <ul>
+                                            <li><a href="shop-list.html">Dresses</a>
+                                                <ul>
+                                                    <li><a href="shop.html">Cocktail</a></li>
+                                                    <li><a href="shop-list.html">Day</a></li>
+                                                    <li><a href="shop.html">Evening</a></li>
+                                                    <li><a href="shop-list.html">T-Shirts</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="shop.html">Clothing</a>
+                                                <ul>
+                                                    <li><a href="shop.html">Sports</a></li>
+                                                    <li><a href="shop-list.html">run</a></li>
+                                                    <li><a href="shop.html">sandals</a></li>
+                                                    <li><a href="shop-list.html">Books</a></li>
+                                                    <li><a href="shop.html">T-Shirts</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop.html">Men</a>
+                                        <ul>
+                                            <li><a href="shop.html">Sports</a></li>
+                                            <li><a href="shop.html">run</a></li>
+                                            <li><a href="shop.html">sandals</a></li>
+                                            <li><a href="shop.html">Books</a></li>
+                                            <li><a href="shop.html">T-Shirts</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop.html">Shop</a>
+                                        <ul>
+                                            <li><a href="shop.html">Grid View</a></li>
+                                            <li><a href="shop-list.html">List View</a></li>
+                                            <li><a href="cart.html">Cart page</a></li>
+                                            <li><a href="wishlist.html">wishlist page</a></li>
+                                            <li><a href="checkout.html">checkout page</a></li>
+                                            <li><a href="single-product.html">single product page</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Other Pages</a>
+                                        <ul>
+                                            <li><a href="shop.html">shop page</a></li>
+                                            <li><a href="single-product.html">single product page</a></li>
+                                            <li><a href="cart.html">cart page</a></li>
+                                            <li><a href="checkout.html">checkout page</a></li>
+                                            <li><a href="blog.html">blog page</a></li>
+                                            <li><a href="single-blog.html">single blog page</a></li>
+                                            <li><a href="about.html">About page</a></li>
+                                            <li><a href="404.html">404 page</a></li>
+                                            <li><a href="contact.html"> contact page </a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact-us.html">contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile-menu-area end -->
+    </header>
+{% endblock %}

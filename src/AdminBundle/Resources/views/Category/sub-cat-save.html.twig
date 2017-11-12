@@ -1,0 +1,89 @@
+{% extends 'AdminBundle:Default:base.html.twig' %}
+{% block content %}
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="alert alert-success" style="display: none">
+                    <strong>Başarıyla {% if (category) %} Güncellendi {% else %} Eklendi {% endif %}</strong>
+                </div>
+
+                <div class="alert alert-danger" style="display: none"><strong>Hata Oluştu</strong></div>
+
+                <form id="category-add-form" class="login-form button-style" method="post">
+                    <div class="form-group">
+
+                        <input type="hidden" name="id" {% if (category) %} value="{{ category.ID }}" {% else %} value="null" {% endif %}>
+                        <label>Kategori Adı:</label>
+                        <input data-validation="required" {% if (category) %} value="{{ category.CategoryName }}" {% endif %} data-validation-error-msg="Boş Olamaz" name="category_name" type="text" id="categoryname" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Ana Kategori :</label>
+                        <select name="parent">
+                            {% for cat  in categories %}
+                            {% if (category == false) %}
+                                <option value="{{ cat.ID }}">{{ cat.CategoryName }}</option>
+                            {% else %}
+                                {% if (cat.ID == category.Parent) %}
+                                    <option value="{{ cat.ID }}" selected>{{ cat.CategoryName }}</option>
+                                {% else %}
+                                    <option value="{{ cat.ID }}">{{ cat.CategoryName }}</option>
+                                {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Açıklama :</label>
+                        <input {% if (category) %} value="{{ category.Description }}" {% endif %}  class="form-control" type="text" name="description" placeholder="Açıklma">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">{% if (category) %} Güncelle {% else %} Ekle {% endif %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+   {% block javascripts %}
+
+       <script>
+           var Forms={
+               Link:{
+                   Self:$('#category-add-form'),
+                   Bind:function () {
+                       Forms.Link.Self.on('submit',function (e) {
+                           e.preventDefault();
+                           $.post('{{ url('ajax_cat_save') }}',$(this).serialize(),function (result) {
+                               if(result.success)
+                               {
+                                   setTimeout(function () {
+                                       location.reload();
+                                   },1500);
+                                   $('.alert-success').slideDown();
+                               }else {
+                                   $('.alert-danger').slideDown();
+                               }
+                           })
+                       })
+                   }
+               },
+
+               Bind:function () {
+                   Forms.Link.Bind();
+               }
+           }
+
+           $(document).ready(function () {
+               $.validate({
+                   validateOnBlur : false,
+                   errorMessagePosition : 'top',
+                   scrollToTopOnError : false
+               });
+               Forms.Bind();
+
+           });
+
+
+       </script>
+   {% endblock %}

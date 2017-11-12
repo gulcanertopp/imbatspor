@@ -1,0 +1,143 @@
+{% extends 'AdminBundle:Default:base.html.twig' %}
+{% block content %}
+    {{ dump(products) }}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <fieldset>
+                    <legend style="margin-left:15px">Ürün Listele</legend>
+                </fieldset>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="alert alert-success" style="display: none">
+                        <strong></strong>
+                    </div>
+
+                    <select name="dataTables-example_length" style="width: 68%; float: left" aria-controls="dataTables-example"
+                            class="custom-select form-control input-sm">
+                        <option value="12">12</option>
+                        <option value="24">24</option>
+                        <option value="48">48</option>
+                        <option value="72">72</option>
+                    </select>
+
+                    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table width="100%"
+                                       class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline"
+                                       id="dataTables-example" role="grid" aria-describedby="dataTables-example_info"
+                                       style="width: 100%;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 148px;">ID
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 180px;">Ürün Kod
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 180px;">Ürün Ad
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 180px;">Fiyat
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 180px;">Marka
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 180px;">Kategori
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 166px;">Resim
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                    {% for product  in products.Content %}
+                                        <tr class="gradeA odd" role="row">
+                                            <td class="sorting_1">{{ product.ID }}</td>
+                                            <td><span>{{ product.ProductCode }}</span>
+                                            <td><span>{{ product.ProductName }}</span>
+                                            <td><span>{{ product.Price }}</span>
+                                            <td><span>{{ product.BrandID }}</span>
+                                            <td><span class="is-cat">      {% for cat  in product.Categories %} <span>{{ cat.CategoryName }} > </span>    {% endfor %}</span>
+                                            <td></span>
+                                                <img style="width: 50%" src="{{ product.ImgUrl }}" />
+
+                                                <div class="is-main-cat-desc">
+                                                    <button type="button" data-id="{{ product.ID }}"
+                                                            class="btn btn-danger delete-product glyphicon glyphicon-remove" title="Sil"></button>
+                                                    <button type="button"
+                                                            onclick="location.href='{{ url("index_admin_update_product",{ 'id' :product.ID }) }}';"
+                                                            class="edit btn btn-primary glyphicon glyphicon-edit" title="Düzenle"></button>
+                                                </div>
+
+                                            </td>
+
+
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('click','.delete-product',function () {
+            var productID= $(this).data('id');
+
+            $.post('{{ url('ajax_admin_delete_product') }}' , {
+                productID:productID
+            }, function (result) {
+                console.log(result);
+                if(result.success){
+                    location.reload();
+                    $('.alert-success strong').text(result.message);
+                    $('.alert-success').slideDown();
+
+                }else{
+                    $('.alert-success').text(result.message);
+                    $('.alert-success').slideDown();
+                }
+
+            });
+        });
+
+
+        var url = window.location.href;
+        var a = url.split("/");
+        var b = url.split("/list");
+        var limit= a[6];
+
+        if(limit != null){
+            $(".custom-select option[value='"+limit+"']" ).prop('selected',true);
+        }
+        $('.custom-select').on('change', function() {
+
+            window.location.href = b[0]+'/'+a[3]+'/'+a[4]+'/'+this.value;
+
+
+        })
+
+    </script>
+{% endblock %}

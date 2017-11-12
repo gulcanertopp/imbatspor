@@ -1,0 +1,94 @@
+{% extends 'AdminBundle:Default:base.html.twig' %}
+{% block content %}
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="alert alert-success" style="display: none">
+                    <strong>Başarıyla {% if (catalog) %} Güncellendi {% else %} Eklendi {% endif %}</strong>
+                </div>
+
+                <div class="alert alert-danger" style="display: none"><strong>Hata Oluştu</strong></div>
+
+                <form id="catalog-add-form" class="login-form button-style" method="post"  enctype="multipart/form-data" >
+                    <div class="form-group">
+                        <input type="hidden" value="0" name="parent">
+                        <input type="hidden" name="id" {% if (catalog) %} value="{{ catalog.ID }}" {% else %} value="null" {% endif %}>
+                        <label>Katalog Adı:</label>
+                        <input data-validation="required" {% if (catalog) %} value="{{ catalog.CatalogName }}" {% endif %} data-validation-error-msg="Boş Olamaz" name="catalog_name" type="text" id="catalogname" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Resim:</label>
+                        <input name="img_url" type="hidden"{% if (catalog) %} value="{{ catalog.ImgUrl }}" {% endif %} id="img_url">
+                    </div>
+                    <div class="form-group">
+                        <label>Pdf:</label>
+                        <input accept="application/pdf" name="pdf_url"  type="hidden"{% if (catalog) %} value="{{ catalog.PdfUrl }}" {% endif %} id="pdf_url">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">{% if (catalog) %} Güncelle {% else %} Ekle {% endif %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+   {% block javascripts %}
+       <script type="text/javascript" src="{{ asset('static/js/uploadImage.js') }}" ></script>
+       <script>
+           var Forms={
+               Link:{
+                   Self:$('#catalog-add-form'),
+                   Bind:function () {
+                       Forms.Link.Self.on('submit',function (e) {
+                           e.preventDefault();
+                           $.post('{{ url('ajax_catalog_save') }}',$(this).serialize(),function (result) {
+                               if(result.success)
+                               {
+                                   setTimeout(function () {
+                                       location.reload();
+                                   },1500);
+                                   $('.alert-success').slideDown();
+                               }else {
+                                   $('.alert-danger').slideDown();
+                               }
+                           })
+                       })
+                   }
+               },
+
+               Bind:function () {
+                   Forms.Link.Bind();
+               }
+           }
+
+           $('#img_url').uploadableImage({
+               url         : '{{ path('admin_media_save_easy') }}',
+               description : ' ',
+               errors      : {
+                   limitMultiFileUploads : 'blog'
+               },
+               s : 0.20
+           });
+
+           $('#pdf_url').uploadableImage({
+               url         : '{{ path('admin_media_save_easy_pdf') }}',
+               description : ' ',
+               errors      : {
+                   limitMultiFileUploads : 'pdf'
+               },
+               s : 0.20
+           });
+
+           $(document).ready(function () {
+               $.validate({
+                   validateOnBlur : false,
+                   errorMessagePosition : 'top',
+                   scrollToTopOnError : false
+               });
+               Forms.Bind();
+
+           });
+
+
+       </script>
+   {% endblock %}
